@@ -29,7 +29,8 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
   // Set up the RomiGyro
-  private final RomiGyro m_gyro = new RomiGyro();
+  // THIS WAS CHANGED TO PUBLIC ---------------------------------------------------------------------------------------<<<<<<<<<<<<
+  public final RomiGyro m_gyro = new RomiGyro();
 
   // Set up the BuiltInAccelerometer
   private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
@@ -41,9 +42,9 @@ public class Drivetrain extends SubsystemBase {
     m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     resetEncoders();
   }
-
+  // POWeR CUT HERE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    m_diffDrive.arcadeDrive(xaxisSpeed *0.5, zaxisRotate *0.5);
   }
 
   public void resetEncoders() {

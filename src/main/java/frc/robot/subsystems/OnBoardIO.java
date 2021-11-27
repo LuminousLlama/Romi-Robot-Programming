@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class OnBoardIO extends SubsystemBase {
   private final DigitalInput m_buttonA = new DigitalInput(0);
   private final DigitalOutput m_yellowLed = new DigitalOutput(3);
-
+  public final Drivetrain m_Drivetrain;
   // DIO 1
   private DigitalInput m_buttonB;
   private DigitalOutput m_greenLed;
@@ -43,7 +43,9 @@ public class OnBoardIO extends SubsystemBase {
    * @param dio1 Mode for DIO 1 (input = Button B, output = green LED)
    * @param dio2 Mode for DIO 2 (input = Button C, output = red LED)
    */
-  public OnBoardIO(ChannelMode dio1, ChannelMode dio2) {
+  public OnBoardIO(ChannelMode dio1, ChannelMode dio2, Drivetrain drivetrain) {
+    m_Drivetrain = drivetrain;
+    
     if (dio1 == ChannelMode.INPUT) {
       m_buttonB = new DigitalInput(1);
     } else {
