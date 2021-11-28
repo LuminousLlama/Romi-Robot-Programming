@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.OnBoardIO;
@@ -26,14 +27,15 @@ public class ToggleLightsBasedOnGyro extends CommandBase {
   public void execute() {
     double angleZ = m_io.m_Drivetrain.m_gyro.getAngleZ();
     double relativeAngleZ = removeRotation(angleZ);
-    
+    System.out.println(relativeAngleZ);
     if(Math.abs(relativeAngleZ) < 10){
       setGreenLight();
     } else {
       setRedLight();
     }
 
-    
+    SmartDashboard.putNumber("Romi Angle Relative", relativeAngleZ); 
+    SmartDashboard.putNumber("Romi Angle", angleZ); 
   }
 
   // Called once the command ends or is interrupted.
@@ -60,8 +62,12 @@ public class ToggleLightsBasedOnGyro extends CommandBase {
   private double removeRotation(double angle){
     angle = Math.abs(angle);
     int rotations = (int) angle/360;
-    System.out.println("rotations: " + rotations);
-    angle = angle - rotations*360;
+    //System.out.println("rotations: " + rotations);
+    angle = angle - rotations*360;  //if rotations are 0 the angle doesnt change -> angle - 0
+    if(angle > 180){  // this makes the angles negative if they are over 180 ex. 355 -> -5
+      angle = angle - 360;
+    }
     return angle;
   }
+
 }
