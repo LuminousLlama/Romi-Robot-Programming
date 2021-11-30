@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
+
+
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.sensors.RomiGyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +18,7 @@ public class Drivetrain extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
+  private double targetHeading;
   // The Romi has the left and right motors set to
   // PWM channels 0 and 1 respectively
   private final Spark m_leftMotor = new Spark(0);
@@ -40,12 +44,33 @@ public class Drivetrain extends SubsystemBase {
     m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     resetEncoders();
+
+    targetHeading = getGyroAngleZ();
+    System.out.println("traget heading" + targetHeading);
   }
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
+    if(Math.abs(zaxisRotate) >= Constants.CONTROLLER_DEADBAND_ZONE){ targetHeading = getGyroAngleZ(); }
+    System.out.println("zaxis rotate: " + zaxisRotate);
+    double gyroAdjust = getGyroAdjustments();
+    zaxisRotate -= gyroAdjust;
     m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
   }
 
+  private double getGyroAdjustments(){
+    double headingDifference = getGyroAngleZ() - targetHeading;
+    headingDifference %= 360;
+
+    if(headingDifference <= -180){
+      headingDifference += 360;
+    } else if(headingDifference >= 180){
+      headingDifference -= 360;
+    }
+   
+    double gyroAdjust = headingDifference * Constants.GYRO_ADJUST_SCALE_COEFFICIENT;
+   
+    return gyroAdjust;
+  }
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
