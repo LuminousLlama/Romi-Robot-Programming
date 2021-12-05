@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import frc.robot.sensors.RomiGyro;
@@ -19,6 +20,7 @@ public class Drivetrain extends SubsystemBase {
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
   private double targetHeading;
+  private Timer turnTimer;
   // The Romi has the left and right motors set to
   // PWM channels 0 and 1 respectively
   private final Spark m_leftMotor = new Spark(0);
@@ -46,15 +48,33 @@ public class Drivetrain extends SubsystemBase {
     resetEncoders();
 
     targetHeading = getGyroAngleZ();
-    System.out.println("traget heading" + targetHeading);
+    turnTimer = new Timer();
   }
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    if(Math.abs(zaxisRotate) >= Constants.CONTROLLER_DEADBAND_ZONE){ targetHeading = getGyroAngleZ(); }
-    System.out.println("zaxis rotate: " + zaxisRotate);
+    boolean isUserTurning = Math.abs(zaxisRotate) >= Constants.CONTROLLER_DEADBAND_ZONE;
+    boolean timerInGracePeriod = turnTimer.get() < Constants.TURN_TIMER_GRACE_PERIOD;
+    boolean adjustHeadingDueToGracePeriod = turnTimer.get() > 0 && timerInGracePeriod;
+    
+    if (isUserTurning){
+      turnTimer.reset();
+      turnTimer.start();
+    } 
+
+    if(isUserTurning || adjustHeadingDueToGracePeriod){
+      targetHeading = getGyroAngleZ();
+    }
+
+    if(!timerInGracePeriod){
+      turnTimer.stop();
+      turnTimer.reset();
+    }
+
+    
     double gyroAdjust = getGyroAdjustments();
     zaxisRotate -= gyroAdjust;
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+ 
+    m_diffDrive.arcadeDrive(xaxisSpeed * 0.7, zaxisRotate * 0.7);
   }
 
   private double getGyroAdjustments(){

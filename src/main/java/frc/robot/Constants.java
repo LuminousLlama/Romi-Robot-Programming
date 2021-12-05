@@ -15,4 +15,5 @@ package frc.robot;
 public final class Constants {
     public final static double GYRO_ADJUST_SCALE_COEFFICIENT = 0.018;
     public final static double CONTROLLER_DEADBAND_ZONE = 0.1;
+	public final static double TURN_TIMER_GRACE_PERIOD = 0.5;
 }
