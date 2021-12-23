@@ -29,6 +29,7 @@ public class ArcadeDrive extends CommandBase {
     m_xaxisSpeedSupplier = xaxisSpeedSupplier;
     m_zaxisRotateSupplier = zaxisRotateSupplier;
     addRequirements(drivetrain);
+    
   }
 
   // Called when the command is initially scheduled.

@@ -25,6 +25,7 @@ public class DriveTime extends CommandBase {
     m_duration = time * 1000;
     m_drive = drive;
     addRequirements(drive);
+    
   }
 
   // Called when the command is initially scheduled.
