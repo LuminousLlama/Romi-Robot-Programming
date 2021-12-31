@@ -50,6 +50,8 @@ public class Drivetrain extends SubsystemBase {
     m_leftMotor.set(leftPower);
     m_rightMotor.set(rightPower);
   }
+  // lesson also included adding arcadeDrive but its a bit redundant because its just a copy & paste 
+
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
