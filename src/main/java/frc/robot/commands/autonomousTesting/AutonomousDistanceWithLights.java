@@ -4,9 +4,8 @@
 
 package frc.robot.commands.autonomousTesting;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveDistance;
-import frc.robot.commands.TurnDegrees;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 
@@ -31,7 +30,7 @@ public class AutonomousDistanceWithLights extends SequentialCommandGroup {
        new TurnDegreesAndTurnOnLights(m_speed, m_degrees , m_drivetrain, m_io),
        new DriveDistanceAndTurnOffLights(m_speed, m_distance, m_drivetrain, m_io),
        new TurnDegreesAndTurnOnLights(m_speed, m_degrees, m_drivetrain, m_io),
-       new TurnLedOff(m_io) // led might stay on after turn not sure 
+       new InstantCommand(m_io::turnoffLed, m_io)
     );
   }
 }

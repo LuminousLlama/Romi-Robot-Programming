@@ -7,6 +7,10 @@ package frc.robot.commands.autonomousTesting;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.OnBoardIO;
 
+
+// USELESS using "inline commands" now
+
+
 public class TurnLedOn extends CommandBase {
  OnBoardIO m_io;
 boolean done;

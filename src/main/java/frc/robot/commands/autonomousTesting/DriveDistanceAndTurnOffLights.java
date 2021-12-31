@@ -30,8 +30,9 @@ public class DriveDistanceAndTurnOffLights extends ParallelCommandGroup {
       new DriveDistance(m_speed, m_distance , m_drivetrain),
       new InstantCommand(() -> { 
         m_io.setGreenLed(true);
-        m_io.setRedLed(true);
-      })
+        m_io.setRedLed(true);      //testing if lamda also works --> It does yay!
+      }, 
+        m_io)
     );
   }
 }

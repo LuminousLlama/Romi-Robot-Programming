@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.OnBoardIO;
 
+
+// USELESS using "inline commands" now
+
+
 public class TurnLedOff extends CommandBase {
   OnBoardIO m_io;
   boolean done;
@@ -38,10 +42,6 @@ public class TurnLedOff extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(done) return true;
-    
-    return false;
-
-    
+    return done;
   }
 }

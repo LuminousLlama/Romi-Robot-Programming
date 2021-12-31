@@ -29,7 +29,7 @@ public class TurnDegreesAndTurnOnLights extends ParallelCommandGroup {
     System.out.println("in turn lights");
     addCommands(
       new TurnDegrees(m_speed, m_degrees, m_drivetrain),
-      new InstantCommand(m_io::turnOnLed)
+      new InstantCommand(m_io::turnOnLed)  // testing not adding subsystem requirement 
     );
   }
 }
