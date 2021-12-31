@@ -37,12 +37,14 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+   
     m_drive.arcadeDrive(m_speed, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
     m_drive.arcadeDrive(0, 0);
   }
 
@@ -50,6 +52,7 @@ public class DriveDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // Compare distance travelled from start to desired distance
+   
     return Math.abs(m_drive.getAverageDistanceInch()) >= m_distance;
   }
 }

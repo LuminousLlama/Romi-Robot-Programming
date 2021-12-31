@@ -125,4 +125,15 @@ public class OnBoardIO extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public void turnoffLed(){
+    this.setGreenLed(false);
+    this.setRedLed(false);
+  }
+ 
+  public void turnOnLed(){
+    this.setGreenLed(true);
+    this.setRedLed(true);
+
+  }
 }
