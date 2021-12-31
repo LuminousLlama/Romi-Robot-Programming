@@ -29,7 +29,7 @@ public class TurnLedOff extends CommandBase {
   @Override
   public void execute() {
     m_io.setGreenLed(false);
-    m_io.setRedLed(false);
+    m_io.setRedLed(false);  //better way to do this would be putting this in initialize and making isfinished true 
     done = true;
   }
 

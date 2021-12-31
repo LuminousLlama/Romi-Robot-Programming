@@ -28,7 +28,7 @@ boolean done;
   @Override
   public void execute() {
     m_io.setGreenLed(true);
-    m_io.setRedLed(true);
+    m_io.setRedLed(true);    //better way to do this would be putting this in initialize and making isfinished true 
     done = true;
   }
 

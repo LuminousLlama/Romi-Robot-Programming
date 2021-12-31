@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.AutonomousDistance;
-import frc.robot.commands.AutonomousTime;
 import frc.robot.commands.autonomousTesting.AutonomousDistanceWithLights;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
@@ -83,9 +81,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new AutonomousDistanceWithLights(m_drivetrain, m_onboardIO);
-    
-    //return m_chooser.getSelected();
+    //return new AutonomousDistanceWithLights(m_drivetrain, m_onboardIO);
+    return m_chooser.getSelected();
   }
 
   /**
