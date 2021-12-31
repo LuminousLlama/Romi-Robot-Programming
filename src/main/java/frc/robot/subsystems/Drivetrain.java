@@ -52,6 +52,11 @@ public class Drivetrain extends SubsystemBase {
   }
   // lesson also included adding arcadeDrive but its a bit redundant because its just a copy & paste 
 
+  //testing git ingore code below 
+  public void testingGit(){
+    this.getClass();
+  }
+
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
